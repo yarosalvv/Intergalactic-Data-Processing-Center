@@ -1,6 +1,7 @@
 #include "student1.h"
 
 // вспомогательные функции
+//преобразовsdftn символ в числовое значение (0-15)
 int char_to_value(char c) {
     if (c >= '0' && c <= '9')
         return c - '0';
@@ -10,6 +11,7 @@ int char_to_value(char c) {
         return -1;
 }
 
+//преобразовывает числовое значение (0-15) в символ
 char value_to_char(int value){
     if (value >= 0 && value <= 9)
         return '0' + value;
@@ -17,7 +19,7 @@ char value_to_char(int value){
         return 'A' + (value - 10);
     return '?';
 }
-
+//разделяет строку числа на целую и дробную части
 void split_number_string(const char* number, char* integer_part, char* fractional_part){
     const char* ppoint = strchr(number, '.');
     if (ppoint != NULL){
@@ -33,6 +35,7 @@ void split_number_string(const char* number, char* integer_part, char* fractiona
 }
 
 // функция валидации
+//проверяет что base от 2 до 16
 int validate_base(int base) {
     if (base >= 2 && base <= 16)
         return 1;
@@ -151,4 +154,5 @@ int main() {
         free(result);
     }
     return 0;
+
 }
