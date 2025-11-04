@@ -7,7 +7,7 @@
 #include "student2.h"
 
 // Bubble Sort Algorithm
-void bubble_sort_double(double* sort_arr, int size){
+void bubble_sort_double(double* sort_arr, int size) {
     for (int i = 0; i < size - 1; i++)
         for (int j = 0; j < size - i - 1 ; j++)
             // Swap if current element is bigger than next
@@ -45,7 +45,7 @@ double calculate_median(double* numbers, int count) {
 }
 
 // Find minimum and maximum values
-void find_min_max(const double* numbers, int count, double* min, double* max){
+void find_min_max(const double* numbers, int count, double* min, double* max) {
     // Array is sorted, so min is first, max is last
     *min = *(numbers + 0);
     *max = *(numbers + count - 1);
@@ -193,7 +193,7 @@ void student2_analyze(const char** number_strings, const int* bases, int count) 
 
     if (num == -1) {
         printf("Error: Incorrect input data");
-        
+
         free(results);
         return;
     }

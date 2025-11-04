@@ -1,10 +1,10 @@
-all: progect1
+all: progect
 
 clean: 
-	rm -f student2.o test_student2.o main.o progect1 test_student2
+	rm -f student2.o test_student2.o main.o progect test_student2
 
-progect1: main.o student2.o
-	gcc -Wall -Wextra -std=c99 main.o student2.o -o progect1 -lm
+progect: main.o student2.o
+	gcc -Wall -Wextra -std=c99 main.o student2.o -o progect -lm
 
 main.o: main.c
 	gcc -Wall -Wextra -std=c99 -c main.c -o main.o
