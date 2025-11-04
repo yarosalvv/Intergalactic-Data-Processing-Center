@@ -1,20 +1,19 @@
-all: progect1
+all: project test_program
 
-clean: 
-	rm -f student2.o test_student2.o main.o progect1 test_student2
+clean:
+	rm -f *.o project test_program
 
-progect1: main.o student2.o
-	gcc -Wall -Wextra -std=c99 main.o student2.o -o progect1 -lm
+project: main.o student3.o
+	gcc -Wall -Wextra -std=c99 main.o student3.o -o project -lm
 
-main.o: main.c
+test_program: tests.o student3.o
+	gcc -Wall -Wextra -std=c99 tests.o student3.o -o test_program -lm
+
+main.o: main.c student3.h
 	gcc -Wall -Wextra -std=c99 -c main.c -o main.o
 
-student2.o: student2.c
-	gcc -Wall -Wextra -std=c99 -c student2.c -o student2.o
+student3.o: student3.c student3.h
+	gcc -Wall -Wextra -std=c99 -c student3.c -o student3.o
 
-test_student2: test_student2.c student2.c
-	gcc -Wall -Wextra -std=c99 test_student2.c student2.c -o test_student2 -lm
-
-test2: test_student2
-	./test_student2
-
+tests.o: tests.c student3.h
+	gcc -Wall -Wextra -std=c99 -c tests.c -o tests.o
