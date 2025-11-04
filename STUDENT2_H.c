@@ -35,7 +35,7 @@ double calculate_mean(const double* numbers, int count) {
 }
 
 
-double calculate_median_min_max(double* numbers, int count, double* min, double* max) {
+double calculate_median(double* numbers, int count) {
     double median;
     int center = (int)(count / 2);
 
@@ -43,15 +43,14 @@ double calculate_median_min_max(double* numbers, int count, double* min, double*
         median = (*(numbers + center) + *(numbers + center - 1)) / 2;
     else
         median = *(numbers + center);
-
-
-    * min = *(numbers + 0);
-    * max = *(numbers + count - 1);
-
-
+    
     return median;
 }
 
+void find_min_max(const double* numbers, int count, double* min, double* max){
+    * min = *(numbers + 0);
+    * max = *(numbers + count - 1);
+}
 
 
 // 3. Функции преобразования и валидации
@@ -66,7 +65,8 @@ int convert_numbers(const char** number_strings, const int* bases, int count, do
             *(results + success_count) = temp_result;
 
             success_count++;
-        else
+        }   
+        else{
             return -1;
         }
     }
