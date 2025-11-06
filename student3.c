@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+
+// Функции работы со строками
 void rm_spaces(char* expression){
     int i = 0, j = 0;
     while(expression[i] != '\0'){
@@ -16,7 +18,6 @@ void rm_spaces(char* expression){
     expression[j] = '\0';
 }
 
-
 int find_operator_position(const char* expression){
    int i = 0;
     while (expression[i] != '\0'){
@@ -27,7 +28,6 @@ int find_operator_position(const char* expression){
     }
     return -1;
 }
-
 
 int split_expression(const char* expression, int op_pos, char* left, char* right) {
     int i = 0;
@@ -49,6 +49,7 @@ int split_expression(const char* expression, int op_pos, char* left, char* right
 }
 
 
+// Функции проеоброзования
 int parse_number_base(const char* str, char* number, int* base){
     int i = 0;
     
@@ -75,7 +76,6 @@ int parse_number_base(const char* str, char* number, int* base){
     *base = atoi(base_str);
     return 1;
 }
-
 
 int string_to_int(const char* str, int base){
     int res = 0;
@@ -112,6 +112,8 @@ int string_to_int(const char* str, int base){
 }
         
 
+
+// Главная функция
 char* student3_calculate(const char* expression){
     char expression_copy[50];
     strncpy(expression_copy, expression, 49);
@@ -167,4 +169,16 @@ char* student3_calculate(const char* expression){
     char* result_str = malloc(100);
     snprintf(result_str, 20, "%d", result);
     return result_str;
+}
+
+int main() {
+    printf("Введите выражение в формате число@сс операция число@cc \n");
+    char input[50] = {};
+    scanf("%49[^\n]", input);
+    
+    char* result = student3_calculate(input);
+    printf("Результат: %s@1016\n", result);
+    free(result);
+    
+    return 0;
 }
