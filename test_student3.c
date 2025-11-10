@@ -47,7 +47,7 @@ void test_parse_expression() {
 
 // Test main function
 void test_student3_calculate_from_file() {
-    FILE* in = fopen("input.txt", "r");
+    FILE* in = fopen("student3_input.txt", "r");
     if (!in) {
         printf("Error: cannot open input.txt\n");
         return;

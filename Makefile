@@ -5,7 +5,7 @@ all: project test_student1 test_student2 test_student3
 clean:
 	rm -f *.o project test_student1 test_student2 test_student3
 
-# Основная программа проекта (объединяет оба студенческих модуля)
+# Основная программа проекта (объединяет три студенческих модуля)
 project: student1.o student2.o student3.o
 	gcc -Wall -Wextra -std=c99 student1.o student2.o student3.o -o project -lm
 
