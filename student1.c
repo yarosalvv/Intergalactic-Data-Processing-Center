@@ -164,19 +164,3 @@ char* student1_process(int src_base, int dest_base, const char* number){
     // Return of the result
     return result;
 }
-
-int main() {
-    int srt, dest;
-    char num[32];
-    scanf("%d %d %31s", &srt, &dest, num);
-
-    char* result = student1_process(srt, dest, num);
-    if (result) {
-        printf("Результат: %s\n", result);
-        free(result);
-    }
-    return 0;
-
-}
-
-
