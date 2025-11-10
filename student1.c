@@ -1,7 +1,8 @@
 #include "student1.h"
 
-// вспомогательные функции
-//преобразовывает символ в числовое значение (0-15)
+
+// Auxiliary functions:
+// Converts a character to a numeric value (0-15)
 int char_to_value(char c) {
     if (c >= '0' && c <= '9')
         return c - '0';
@@ -11,7 +12,7 @@ int char_to_value(char c) {
         return -1;
 }
 
-//преобразовывает числовое значение (0-15) в символ
+// Converts a numeric value (0-15) to a character
 char value_to_char(int value){
     if (value >= 0 && value <= 9)
         return '0' + value;
@@ -19,7 +20,8 @@ char value_to_char(int value){
         return 'A' + (value - 10);
     return '?';
 }
-//разделяет строку числа на целую и дробную части
+
+// Divides a string of numbers into whole and fractional parts
 void split_number_string(const char* number, char* integer_part, char* fractional_part){
     const char* ppoint = strchr(number, '.');
     if (ppoint != NULL){
@@ -34,21 +36,24 @@ void split_number_string(const char* number, char* integer_part, char* fractiona
     }
 }
 
-// функция валидации
-//проверяет что base от 2 до 16
+
+// Validation function:
+// Checks that base is from 2 to 16
 int validate_base(int base) {
     if (base >= 2 && base <= 16)
         return 1;
     else
         return 0;
 }
-//Проверяет допустимые символы для данной системы счисления
+
+// Checks valid characters for a given number system
 int validate_number(const char* number, int base) {
-    int point = 0;
     int len = strlen(number);
     if (len == 0 || len > 12)
         return 0;
-    //Проверяет что точка встречается не более одного раза
+    
+// Checks that the point occurs no more than once
+    int point = 0;
     for (int i = 0; i < len; i++) {
         char c = toupper(number[i]);
         if (c == '.') { 
@@ -65,33 +70,39 @@ int validate_number(const char* number, int base) {
     return 1;
 }
 
-//функции преобразования
-// Разделяет строку на целую и дробную часть
+
+// Сonversion functions
+// Divides a string into whole and fractional parts
 double string_to_decimal(const char* number, int base) {
     char integer_part[16], fractional_part[16];
     split_number_string(number, integer_part, fractional_part);
-// целая
+
+    // Integer_part
     double integer = 0;
     for (int i = 0; i < strlen(integer_part); i++) {
         char c = toupper(integer_part[i]);
         int part = char_to_value(c);
         integer = integer * base + part;
     }
-//дробная
+// Fractional_part
     double fract = 0;
     double mult = 1.0 / base;
     for (int i = 0; i < strlen(fractional_part); i++) {
         fract += mult * char_to_value(toupper(fractional_part[i]));
         mult /= base;
     }
-    return integer + fract; //объединение
+
+    // Unification
+    return integer + fract; 
 }
-// Разделяет число на целую и дробную часть
+
+// Divides a number into an integer and a fractional part
 char* decimal_to_string(double number, int base, int precision) {
     if (precision > 12) precision = 12;
     long long integer_part = (long long)number;
     double fractional_part = number - integer_part;
-//целая
+
+// Integer_part
     char inter[64] = "";
     if (integer_part == 0)
         strcpy(inter, "0");
@@ -106,7 +117,8 @@ char* decimal_to_string(double number, int base, int precision) {
             inter[i] = temp[index - 1 - i];
         inter[index] = '\0';
     }
-// дробная
+
+// Fractional_part
     char fracal[64] = "";
     if (fractional_part > 0) {
         strcpy(fracal, ".");
@@ -120,7 +132,8 @@ char* decimal_to_string(double number, int base, int precision) {
         }
         fracal[fracalindex] = '\0';
     }
-    // объединение(вроде)
+    
+    // Unification
     int total_len = strlen(inter) + strlen(fracal) + 1;
     char* result = (char*)malloc(total_len);
     if (!result)
@@ -130,8 +143,8 @@ char* decimal_to_string(double number, int base, int precision) {
     return result;
 }
 
-//главная функция
-// - Проверить валидность входных данных
+// Main function:
+// Checking the validity of the input data
 char* student1_process(int src_base, int dest_base, const char* number){
     if (validate_base(src_base) == 0 || validate_base(dest_base) == 0) {
         printf("Ошибка: недопустимое основание системы счисления\n");
@@ -141,11 +154,14 @@ char* student1_process(int src_base, int dest_base, const char* number){
         printf("Ошибка: недопустимое число для данной системы счисления\n");
         return NULL;
     }
-    // десятичная
+    
+    // Conversion to decimal number system
     double decimal_value = string_to_decimal(number, src_base);
-    // целевая
+    
+    // Conversion to the target number system
     char* result = decimal_to_string(decimal_value, dest_base, 12);
-    // возращает результат
+
+    // Return of the result
     return result;
 }
 
@@ -162,4 +178,5 @@ int main() {
     return 0;
 
 }
+
 
