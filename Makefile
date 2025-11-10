@@ -1,46 +1,62 @@
 # Цели проекта по умолчанию (собирает все программы)
-all: project test_program test_student2
+all: project test_student1 test_student2 test_student3
 
 # Очистка всех сгенерированных файлов
 clean:
-	rm -f *.o project test_program test_student2
+	rm -f *.o project test_student1 test_student2 test_student3
 
 # Основная программа проекта (объединяет оба студенческих модуля)
-project: main.o student2.o student3.o
-	gcc -Wall -Wextra -std=c99 main.o student2.o student3.o -o project -lm
+project: student1.o student2.o student3.o
+	gcc -Wall -Wextra -std=c99 student1.o student2.o student3.o -o project -lm
 
-# Тестовая программа для student3
-test_program: tests.o student3.o
-	gcc -Wall -Wextra -std=c99 tests.o student3.o -o test_program -lm
+
+# Тестовая программа для student1  
+test_student1: test_student1.o student1.o
+	gcc -Wall -Wextra -std=c99 test_student1.o student1.o -o test_student1 -lm
+
+# Компиляция модуля student1
+student1.o: student1.c student1.h
+	gcc -Wall -Wextra -std=c99 -c student1.c -o student1.o
+
+# Компиляция тестов для student1
+test_student1.o: test_student1.c student1.h
+	gcc -Wall -Wextra -std=c99 -c test_student1.c -o test_student1.o
+
+
 
 # Тестовая программа для student2  
 test_student2: test_student2.o student2.o
 	gcc -Wall -Wextra -std=c99 test_student2.o student2.o -o test_student2 -lm
 
-# Компиляция основного файла (зависит от обоих заголовочных файлов)
-main.o: main.c student2.h student3.h
-	gcc -Wall -Wextra -std=c99 -c main.c -o main.o
-
 # Компиляция модуля student2
 student2.o: student2.c student2.h
 	gcc -Wall -Wextra -std=c99 -c student2.c -o student2.o
+
+# Компиляция тестов для student2
+test_student2.o: test_student2.c student2.h
+	gcc -Wall -Wextra -std=c99 -c test_student2.c -o test_student2.o	
+
+
+# Тестовая программа для student3
+test_student3: test_student3.o student3.o
+	gcc -Wall -Wextra -std=c99 test_student3.o student3.o -o test_student3 -lm	
 
 # Компиляция модуля student3
 student3.o: student3.c student3.h
 	gcc -Wall -Wextra -std=c99 -c student3.c -o student3.o
 
 # Компиляция тестов для student3
-tests.o: tests.c student3.h
-	gcc -Wall -Wextra -std=c99 -c tests.c -o tests.o
+test_student3.o: test_student3.c student3.h
+	gcc -Wall -Wextra -std=c99 -c test_student3.c -o test_student3.o
 
-# Компиляция тестов для student2
-test_student2.o: test_student2.c student2.h
-	gcc -Wall -Wextra -std=c99 -c test_student2.c -o test_student2.o
+# Запуск тестов для student1
+test1: test_student1
+	./test_student1
 
 # Запуск тестов для student2
 test2: test_student2
 	./test_student2
 
 # Запуск тестов для student3
-test3: test_program
-	./test_program
+test3: test_student3
+	./test_student3
