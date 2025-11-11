@@ -1,10 +1,6 @@
 #ifndef STUDENT1_H
 #define STUDENT1_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
 // 1. Функции валидации
 int validate_base(int base);

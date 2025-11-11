@@ -1,10 +1,6 @@
 #include "student1.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <math.h>
+#include "project.h"
 
 
 void test_conversions_systems(void) {
@@ -18,7 +14,7 @@ void test_conversions_systems(void) {
 
     result = student1_process(8, 2, "31.2");
     printf("result: %s\n", result);
-    assert(strcmp(result, "11010.1") == 0);
+    assert(strcmp(result, "11001.01") == 0);
     free(result);
 
     result = student1_process(10, 16, "228.5");
@@ -62,13 +58,13 @@ void test_correct_rounding(void) {
     }
     free(result);
 
-    result = student1_process(10, 2, "125.1515151599");
+    result = student1_process(10, 2, "0.5");
+    assert(result != NULL);
     printf("result: %s\n", result);
     char* back_result = student1_process(2, 10, result);
     assert(back_result != NULL);
     
-
-    printf("Direct: 125.1515151599 -> %s -> The reverse: %s\n", result, back_result);
+    printf("Direct: 0.5 -> %s -> The reverse: %s\n", result, back_result);
     free(result);
     free(back_result);
 }

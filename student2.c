@@ -1,9 +1,4 @@
-// student2.h
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
+#include "project.h"
 #include "student2.h"
 
 // Bubble Sort Algorithm

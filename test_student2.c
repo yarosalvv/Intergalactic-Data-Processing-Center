@@ -274,7 +274,7 @@ void test_integration() {
 }
 
 int main() {
-    printf("🚀 Starting student2.c testing\n\n");
+    printf("Starting student2.c testing\n\n");
     
     test_bubble_sort();
     test_statistical_functions();
@@ -282,6 +282,6 @@ int main() {
     test_invalid_records();
     test_integration();
     
-    printf("✅ Testing completed\n");
+    printf("Testing completed\n");
     return 0;
 }

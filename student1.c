@@ -1,5 +1,5 @@
 #include "student1.h"
-
+#include "project.h"
 
 // Auxiliary functions:
 // Converts a character to a numeric value (0-15)
@@ -79,7 +79,8 @@ double string_to_decimal(const char* number, int base) {
 
     // Integer_part
     double integer = 0;
-    for (int i = 0; i < strlen(integer_part); i++) {
+    size_t len_int = strlen(integer_part);
+    for (size_t i = 0; i < len_int; i++) {
         char c = toupper(integer_part[i]);
         int part = char_to_value(c);
         integer = integer * base + part;
@@ -87,7 +88,8 @@ double string_to_decimal(const char* number, int base) {
 // Fractional_part
     double fract = 0;
     double mult = 1.0 / base;
-    for (int i = 0; i < strlen(fractional_part); i++) {
+    size_t len_frac = strlen(fractional_part);
+    for (size_t i = 0; i < len_frac; i++) {
         fract += mult * char_to_value(toupper(fractional_part[i]));
         mult /= base;
     }
@@ -147,11 +149,11 @@ char* decimal_to_string(double number, int base, int precision) {
 // Checking the validity of the input data
 char* student1_process(int src_base, int dest_base, const char* number){
     if (validate_base(src_base) == 0 || validate_base(dest_base) == 0) {
-        printf("Ошибка: недопустимое основание системы счисления\n");
+        printf("Error: invalid base of the number system\n");
         return NULL;
     }
     if (validate_number(number, src_base) == 0) {
-        printf("Ошибка: недопустимое число для данной системы счисления\n");
+        printf("Error: Invalid number for this number system\n");
         return NULL;
     }
     
