@@ -23,7 +23,7 @@ char value_to_char(int value){
 
 // Divides a string of numbers into whole and fractional parts
 void split_number_string(const char* number, char* integer_part, char* fractional_part){
-    const char* ppoint = strchr(number, '.');
+    const char* point = strchr(number, '.');
     if (point != NULL){
         int lenc = point - number;
         strncpy(integer_part, number, lenc);
@@ -166,5 +166,6 @@ char* student1_process(int src_base, int dest_base, const char* number){
     // Return of the result
     return result;
 }
+
 
 
