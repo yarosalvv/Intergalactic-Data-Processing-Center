@@ -1,11 +1,8 @@
 #include "student3.h"
 #include "project.h"
 
-
-
-
- // Remove spaces from string
- void rm_space(char* expressions){
+// Remove spaces from string
+void rm_space(char* expressions){
     int i = 0, j = 0;
     while (expressions[i] != '\0'){
         if (expressions[i] != ' '){
@@ -56,8 +53,8 @@ int extract_number_base(const char* token, char* number, int* base){
     number[i] = '\0';
 
     if (token[j] != '@'){
-    printf("Ошибка: отстуствует '@' в выражении '%s'\n", token);
-    return 0;     
+        printf("Error: missing '@' in expression '%s'\n", token);
+        return 0;     
     }
 
     j++;
@@ -70,12 +67,11 @@ int extract_number_base(const char* token, char* number, int* base){
     *base = atoi(base_str);
 
     if (*base < 2 || *base > 16){
-        printf("Ошибка: допустимая сс от 2 до 16\n");
+        printf("Error: base must be between 2 and 16\n");
         return 0;
     }
     return 1;
 }
-
 
 // Parse mathematical expression
 int parse_expression(const char* input, 
@@ -86,7 +82,7 @@ int parse_expression(const char* input,
     char expression[128];
 
     if (strlen(input) >= 128) {
-        printf("Ошибка: строка слишком длинная\n");
+        printf("Error: string too long\n");
         return 0;
     }
     strcpy(expression, input); 
@@ -95,7 +91,7 @@ int parse_expression(const char* input,
 
     int op_pos = find_operation(expression);
     if (op_pos == -1) {
-        printf("Ошибка: не найдена операция\n");
+        printf("Error: operation not found\n");
         return 0;
     }
 
@@ -104,17 +100,16 @@ int parse_expression(const char* input,
     char left[64], right[64];
     split_expressions(expression, left, right, op_pos);
 
-     if (extract_number_base(left, num1_str, base1) != 1) {
-        printf("Ошибка в левом операнде: %s\n", left);
+    if (extract_number_base(left, num1_str, base1) != 1) {
+        printf("Error in left operand: %s\n", left);
         return 0;
     }
     if (extract_number_base(right, num2_str, base2) != 1) {
-        printf("Ошибка в правом операнде: %s\n", right);
+        printf("Error in right operand: %s\n", right);
         return 0;
     }
     return 1; 
 }
-
 
 // Convert string to double in specified base
 double string_to_double(const char* str, int base){
@@ -128,7 +123,7 @@ double string_to_double(const char* str, int base){
 
         if (c == '.'){
             if (found_dot == 1){
-                printf("ошибка: две точки в одной из чисел\n");
+                printf("Error: two decimal points in one of the numbers\n");
                 return 0;
             }
             found_dot += 1;
@@ -141,13 +136,13 @@ double string_to_double(const char* str, int base){
             digit = c - 'A' + 10;
         else if (c >= 'a' && c <= 'f')
             digit = c -'a' + 10;
-
         else {
-            printf("Ошибка: недопустимый символ '%c'\n", c);
+            printf("Error: invalid character '%c'\n", c);
             return 0;
         }
+        
         if (digit >= base){
-            printf("Ошибка: цифра '%c' не соответствует системе счисления %d\n", c, base);
+            printf("Error: digit '%c' doesn't match base %d\n", c, base);
             return 0;
         }
 
@@ -162,7 +157,6 @@ double string_to_double(const char* str, int base){
     return result;
 }
 
-
 // Perform arithmetic calculation
 double calculate(double a, double b, char operation, int* error){
     double rez = 0;
@@ -172,29 +166,28 @@ double calculate(double a, double b, char operation, int* error){
         case '*': rez = a * b; break;
         case '/': 
             if(b == 0){                                                                            
-                printf("Ошибка: нелья делить на 0\n");
+                printf("Error: cannot divide by zero\n");
                 *error = 1;
                 return 0;
             }
             rez = a / b; break;
         default:
-            printf("Ошибка: неизвестная операция\n");
+            printf("Error: unknown operation\n");
             *error = 1;
             return 0;
     }
     return rez;
 }
 
-
 // Main function
 char* student3_calculate(const char* expression) {
-    static char result_str[64];  // статическая строка для возврата
+    static char result_str[64];  // static string for return
     char num1_str[64], num2_str[64];
     int base1, base2;
     char operation;
 
     if (!parse_expression(expression, num1_str, &base1, num2_str, &base2, &operation)) {
-        strcpy(result_str, "Ошибка при парсинге");
+        strcpy(result_str, "Parsing error");
         return result_str;
     }
 
@@ -204,7 +197,7 @@ char* student3_calculate(const char* expression) {
     int error = 0;
     double result = calculate(num1, num2, operation, &error);
     if (error) {
-        strcpy(result_str, "Ошибка вычисления");
+        strcpy(result_str, "Calculation error");
         return result_str;
     }
 
