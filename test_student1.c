@@ -90,13 +90,14 @@ void test_error(void) {
 }
 
 int main(void) {
-    printf("🚀 Starting student1.c testing\n\n");
+    printf("Starting student1.c testing\n\n");
 
     test_conversions_systems();
     test_working_fractions();
     test_correct_rounding();
     test_error();
 
-    printf("✅ Testing completed\n");
+    printf("Testing completed\n");
     return 0;
+
 }
